@@ -75,14 +75,14 @@
     <div class="page-main text-center align-items-center">
         <div class="play mt-5 rounded text-wrapper text-center">
             <h1 class="mb-5">Let's Play</h1>
-           
+
             <p class="gameOver" id="gameOver"></p>
         </div>
         <div class="d-flex justify-content-center pt-3">
             <p type="number" id="bankRoll" class="row-25 ml-3 mr-3">Your Starting Bank is $1000</p>
         </div>
         <div class="d-flex justify-content-center pt-3">
-            <input value="" type="number" placeholder="Bet Amount" id="inputText"
+            <input value="" type="number" placeholder="Bet Amount" disabled="disabled" id="inputText"
                 class="text-center betAmount ml-3 mb-3 mr-3">
         </div>
         <div class="d-flex justify-content-center pt-2">
@@ -125,6 +125,7 @@
         <script>
             document.getElementById("reset").disabled = true;
             document.getElementById("roll").disabled = true;
+            document.getElementById("inputText").disabled = false;
 
             let outcome = document.getElementById('total');
             let show = document.getElementById('show');
@@ -153,7 +154,7 @@
                     console.log(CurrentbetAmount);
                     return (CurrentbetAmount);
                 }
-               
+
             }
             let message = {
                 natural: `That's a natural. You win!`,
@@ -209,6 +210,7 @@
             }
 
             function determineOutcome(total) {
+                document.getElementById("inputText").disabled = true;
                 const bankOutput = document.getElementById('bankRoll')
                 if (point == 0) {
                     if (total == 7 || total == 11) {
@@ -220,6 +222,7 @@
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
                         document.getElementById("roll").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
                         console.log(bankRoll);
 
@@ -232,6 +235,7 @@
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
                         document.getElementById("roll").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         bankRoll = bankRoll - CurrentbetAmount;
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
@@ -240,6 +244,7 @@
                             document.getElementById("submitBtn").disabled = true;
                             document.getElementById("reset").disabled = false;
                             document.getElementById("roll").disabled = true;
+                            document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
                             gameOver.textContent = `You Rolled 2 and have $0 . . . Game Over!!!!`
 
@@ -254,6 +259,7 @@
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
                         document.getElementById("roll").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         bankRoll = bankRoll - CurrentbetAmount;
                         console.log(bankRoll);
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
@@ -262,6 +268,7 @@
                             document.getElementById("submitBtn").disabled = true;
                             document.getElementById("reset").disabled = false;
                             document.getElementById("roll").disabled = true;
+                            document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
                             gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
                         }
@@ -276,6 +283,7 @@
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
                         document.getElementById("roll").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         bankRoll = bankRoll - CurrentbetAmount;
                         console.log(bankRoll);
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
@@ -284,6 +292,7 @@
                             document.getElementById("submitBtn").disabled = true;
                             document.getElementById("reset").disabled = false;
                             document.getElementById("roll").disabled = true;
+                            document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
                             gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
                         }
@@ -307,7 +316,7 @@
                     }
                     inputText.addEventListener("keypress", function (event) {
                         if (event.key === "Enter") {
-
+                            event.preventDefault();
                             document.getElementById("submitBtn").click();
                         }
                     });
@@ -322,6 +331,7 @@
                         playerInfo.gamesPlayed++;
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         document.getElementById("roll").disabled = true;
                         point = 0;
                         bankRoll = bankRoll + CurrentbetAmount;
@@ -343,6 +353,7 @@
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
                         document.getElementById("roll").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
 
@@ -352,6 +363,7 @@
                         document.getElementById("submitBtn").disabled = true;
                         document.getElementById("reset").disabled = false;
                         document.getElementById("roll").disabled = true;
+                        document.getElementById("inputText").disabled = false;
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
                     }
                 }
@@ -360,9 +372,10 @@
 
             inputText.addEventListener("keypress", function (event) {
                 if (event.key === "Enter") {
-
+                    event.preventDefault();
                     document.getElementById("submitBtn").click();
                 }
+
             });
 
             function setGameOver() {
