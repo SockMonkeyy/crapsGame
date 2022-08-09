@@ -39,17 +39,18 @@
                     <small class="total">You rolled&hellip; </small><var id="total"></var>
             </div>
             <div class="container" style="height: 100px;">
-                <div class="row">
-                    <div class="col">
+                <div class="row d-flex justify-content-center ">
+                    <div class="col-50 mr-5">
                         <div id="die1" class="die">0</div>
                         <div id="die2" class="die">0</div>
                     </div>
                     
-                    <div class="col">
-                        Wins: <span id="wins">0</span> Losses: <span id="losses">0</span>
+                    <div class="col-50 ml-5">
+                        Wins: <span id="wins">0</span> <br> 
+                        Losses: <span id="losses">0</span>
                     </div>
                 </div>
-                <div class="rollbtn row d-flex justify-content-center pt-2">
+                <div class="rollbtn d-flex justify-content-center pt-2">
                     <button onclick="setGameOver()" class="col-25 mr-2 rounded" id="reset">Reset Game</button>
                     <button id="roll" class="rounded p-1 col-25 roll">Roll the dice!</button>
                 </div>
