@@ -14,6 +14,12 @@
             background-color: black;
             color: oldlace;
         }
+        .page-main{
+            padding-top: 3rem;
+        }
+        .betAmount{
+            max-width: 10rem;
+        }
     </style>
 </head>
 
@@ -26,11 +32,11 @@
                 <p class="show" id="show">To start a game, roll the dice!</p>
                 <p class="gameOver" id="gameOver"></p>
             </div>
-            <div class="d-flex justify-content-center pt-5">
+            <div class="d-flex justify-content-center pt-3">
                 <p type="number" id="bankRoll" class="row-25 ml-3 mr-3">Your Starting Bank is $1000</p>
             </div>
-            <div class="d-flex justify-content-center pt-5">
-                <input type="number" placeholder="Bet Amount" id="inputText" class="row-25 text-center ml-3 mr-3">
+            <div class="d-flex justify-content-center pt-3">
+                <input type="number" placeholder="Bet Amount" id="inputText" class="text-center betAmount ml-3 mr-3">
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <button onclick="setBet()" class="row-25 mb-2 rounded" id="submitBtn">Bet</input>
@@ -58,9 +64,7 @@
             </div>
     </main>
    
-    <footer class="page-footer text-center text-wrapper mt-5">
-        <small>2022 &copy; The Odin Project/Udemy Bootcamp, by Wayne Richardson</small>
-    </footer>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
