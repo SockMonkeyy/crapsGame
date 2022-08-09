@@ -6,51 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="styledcraps.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Mochiy Pop One', sans-serif;
+            background-color: black;
+            color: oldlace;
+        }
+    </style>
 </head>
 
 <body>
+
     <main class="page-main text-center align-items-center">
         <div>
             <div class="play mt-5 rounded text-wrapper text-center">
                 <h1>Let's Play</h1>
                 <p class="show" id="show">To start a game, roll the dice!</p>
+                <p class="gameOver" id="gameOver"></p>
             </div>
             <div class="d-flex justify-content-center pt-5">
                 <p type="number" id="bankRoll" class="row-25 ml-3 mr-3">Your Starting Bank is $1000</p>
             </div>
             <div class="d-flex justify-content-center pt-5">
-                <input type="number" placeholder="Bet" id="inputText" class="row-25 ml-3 mr-3">
+                <input type="number" placeholder="Bet Amount" id="inputText" class="row-25 text-center ml-3 mr-3">
             </div>
             <div class="d-flex justify-content-center pt-2">
-                <button onclick="setBet()" class="row-25 mb-2" id="submitBtn">Bet</input>
+                <button onclick="setBet()" class="row-25 mb-2 rounded" id="submitBtn">Bet</input>
+                </div>
+                <div class="row-25 text-center d-flex justify-content-center pt-2">
+                    <small class="total">You rolled&hellip; </small><var id="total"></var>
             </div>
             <div class="container" style="height: 100px;">
                 <div class="row">
-                    <div class="col rounded border border-danger">
-                        <div id="die1" class="die"></div>
-                        <div id="die2" class="die"></div>
+                    <div class="col">
+                        <div id="die1" class="die">0</div>
+                        <div id="die2" class="die">0</div>
                     </div>
-                    <div class="rounded col border border-danger">
-                        <small class="total">You rolled&hellip; </small><var id="total"></var>
-                    </div>
-                    <div class="col rounded border border-danger flex-grow">
+                    
+                    <div class="col">
                         Wins: <span id="wins">0</span> Losses: <span id="losses">0</span>
                     </div>
                 </div>
-                <div class="rollbtn row">
-                    <button class="col p-1 rounded" id="reset">Reset Game</button>
-                    <button id="roll" class="rounded p-1 col roll">Roll the dice!</button>
+                <div class="rollbtn row d-flex justify-content-center pt-2">
+                    <button onclick="setGameOver()" class="col-25 mr-2 rounded" id="reset">Reset Game</button>
+                    <button id="roll" class="rounded p-1 col-25 roll">Roll the dice!</button>
                 </div>
 
             </div>
     </main>
-    <footer class="page-footer text-center text-wrapper">
+   
+    <footer class="page-footer text-center text-wrapper mt-5">
         <small>2022 &copy; The Odin Project/Udemy Bootcamp, by Wayne Richardson</small>
     </footer>
-    </div>
-    </div>
-    <script src="./craps.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -85,7 +94,7 @@
             }
             else {
                 document.getElementById("roll").disabled = false;
-                document.getElementById("reset").disabled = true;
+                document.getElementById("reset").disabled = false;
                 document.getElementById("roll").disabled = true;
                 startNewRound()
                 console.log(CurrentbetAmount);
@@ -117,7 +126,6 @@
         }
 
         document.getElementById('roll').onclick = rollBoth;
-        document.getElementById('reset').onclick = reset;
 
 
         function roll(dice) {
@@ -173,15 +181,16 @@
                     document.getElementById("roll").disabled = true;
                     bankRoll = bankRoll - CurrentbetAmount;
                     bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                  
+
 
                     if (bankRoll == 0) {
-                    document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    alert("You Rolled 2 and have $0 . . . Game Over!!!! Please Refresh the page to Play Again")
-                }
+                        document.getElementById("submitBtn").disabled = true;
+                        document.getElementById("reset").disabled = false;
+                        document.getElementById("roll").disabled = true;
+                        bankOutput.textContent = `Your Bank is $${bankRoll}`;
+                        gameOver.textContent = `You Rolled 2 and have $0 . . . Game Over!!!!`
+
+                    }
                     console.log(bankRoll);
 
                 }
@@ -197,12 +206,12 @@
                     bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
                     if (bankRoll == 0) {
-                    document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    alert("You Rolled 3 and have $0 . . . Game Over!!!! Please Refresh the page to Play Again")
-                }
+                        document.getElementById("submitBtn").disabled = true;
+                        document.getElementById("reset").disabled = false;
+                        document.getElementById("roll").disabled = true;
+                        bankOutput.textContent = `Your Bank is $${bankRoll}`;
+                        gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
+                    }
 
 
 
@@ -219,20 +228,20 @@
                     bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
                     if (bankRoll == 0) {
-                    document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    alert("You Rolled 12 and have $0 . . . Game Over!!!! Please Refresh the page to Play Again")
-                }
+                        document.getElementById("submitBtn").disabled = true;
+                        document.getElementById("reset").disabled = false;
+                        document.getElementById("roll").disabled = true;
+                        bankOutput.textContent = `Your Bank is $${bankRoll}`;
+                        gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
+                    }
 
 
 
                 }
                 else if (bankRoll == 0) {
-                    alert("Your Broke!!! Game Over!!!! Please Refresh the page to Play Again")
+                    gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
                     document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = true;
+                    document.getElementById("reset").disabled = false;
                     document.getElementById("roll").disabled = true;
                     bankOutput.textContent = `Your Bank is $${bankRoll}`;
                 }
@@ -279,17 +288,19 @@
 
 
                 }
-                 if (bankRoll == 0) {
-                    alert("Thats Craps!!! Your Broke!!! Game Over!!!! Please Refresh the page to Play Again")
+                if (bankRoll == 0) {
+                    gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
                     document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = true;
+                    document.getElementById("reset").disabled = false;
                     document.getElementById("roll").disabled = true;
                     bankOutput.textContent = `Your Bank is $${bankRoll}`;
                 }
             }
 
         }
-      
+        function setGameOver() {
+            location.reload();
+        };
 
 
 

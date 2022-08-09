@@ -1,3 +1,6 @@
+document.getElementById("reset").disabled = true;
+document.getElementById("roll").disabled = true;
+
 let outcome = document.getElementById('total');
 let show = document.getElementById('show');
 let showWins = document.getElementById('wins');
@@ -5,41 +8,47 @@ let showLosses = document.getElementById('losses');
 let point = 0;
 let wins = 0;
 let losses = 0;
-let betDefault = 25;
-let currentBet = document.getElementById('currentBet').value;
-
-//Player info
+let bankRoll = 1000;
 let playerInfo = {
-	startBank: 1000,
-	gamesPlayed: 0,
-	
+    gamesPlayed: 0,
 };
 
+
+function setBet() {
+    CurrentbetAmount = Number(document.getElementById('inputText').value);
+    if (CurrentbetAmount > bankRoll || CurrentbetAmount == NaN || CurrentbetAmount < 1) {
+        alert(`Please enter an amount above 0 below ${bankRoll}`)
+    }
+    else {
+        document.getElementById("roll").disabled = false;
+        document.getElementById("reset").disabled = true;
+        document.getElementById("roll").disabled = true;
+        startNewRound()
+        console.log(CurrentbetAmount);
+        return (CurrentbetAmount);
+    }
+}
 let message = {
-    natural: "That's a natural. You win!",
-    two: "That's snake eyes. You lose.",
-    three: "That's ace duece. You Lose.",
-    twelve: "That's box cars. You lose.",
-    point: "You hit your point. You win!",
-    seven: "That's a 7. Craps you lose.",
+    natural: `That's a natural. You win!`,
+    two: `That's snake eyes. You lose!`,
+    three: `That's ace duece. You Lose!`,
+    twelve: `That's box cars. You lose!`,
+    point: `You hit your point. You won!`,
+    seven: `That's a 7. Craps you lose!`,
 };
+
+// Betting script
 
 let startNewRound = function () {
-	showPlayerInfo();
-	playerInfo.point = 0;
-	// allow betting again
-	//reset bet amount
-	enableButtons();
-	// clear betting area
-	playerInfo.amountBet = 0;
 
+    playerInfo.point = 0;
+    // allow betting again
+    //reset bet amount
 
-}
-function currentBet() {
-    currentBet = document.getElementById('currentBet').value;
-    document.getElementById("currentBet").innerHTML = currentBet;
-    console.log(currentBet);
-    return currentBet;
+    // clear betting area
+    document.getElementById("submitBtn").disabled = true;
+    document.getElementById("reset").disabled = false;
+    document.getElementById("roll").disabled = false;
 
 }
 
@@ -74,33 +83,96 @@ function rollBoth() {
 }
 
 function determineOutcome(total) {
+    const bankOutput = document.getElementById('bankRoll')
+
     if (point == 0) {
         if (total == 7 || total == 11) {
-
+            bankRoll = bankRoll + CurrentbetAmount;
             wins++;
-           
-            display("natural", showWins, wins);
+            // added betting code
+            display("natural", showWins, wins, playerInfo.wins);
             playerInfo.gamesPlayed++;
-            document.getElementById("gamesPlayed").innerHTML = "";
-            playerInfo.wins = playerData.wins + playerData.amountBet;
-            startNewRound()
-			return true;
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+            console.log(bankRoll);
+
+
         }
         else if (total == 2) {
 
             losses++;
             display("two", showLosses, losses);
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankRoll = bankRoll - CurrentbetAmount;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+          
+
+            if (bankRoll == 0) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+            alert("You Rolled 2 and have $0 . . . Game Over!!!! Please Refresh the page to Play Again")
+        }
+            console.log(bankRoll);
+
         }
         else if (total == 3) {
 
             losses++;
             display("three", showLosses, losses);
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankRoll = bankRoll - CurrentbetAmount;
+            console.log(bankRoll);
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+
+            if (bankRoll == 0) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+            alert("You Rolled 3 and have $0 . . . Game Over!!!! Please Refresh the page to Play Again")
+        }
+
+
+
         }
         else if (total == 12) {
 
             losses++;
             display("twelve", showLosses, losses);
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankRoll = bankRoll - CurrentbetAmount;
+            console.log(bankRoll);
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+
+            if (bankRoll == 0) {
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+            alert("You Rolled 12 and have $0 . . . Game Over!!!! Please Refresh the page to Play Again")
         }
+
+
+
+        }
+        else if (bankRoll == 0) {
+            alert("Your Broke!!! Game Over!!!! Please Refresh the page to Play Again")
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+        }
+
         else {
 
             point = total;
@@ -113,14 +185,18 @@ function determineOutcome(total) {
         if (total == point) {
 
             wins++;
-			// added betting code
-			display("point", showWins, wins, playerInfo.wins);
-			player.bankroll = playerInfo.amountBet + playerInfo.bankroll;
-			playerInfo.gamesPlayed++;
-			playerInfo.wins = playerData.wins + playerData.amountBet;
-			startNewRound()
-			point = 0;
-			return true;
+            // added betting code
+            display("point", showWins, wins, playerInfo.wins);
+            playerInfo.gamesPlayed++;
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            point = 0;
+            bankRoll = bankRoll + CurrentbetAmount;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+            console.log(bankRoll);
+
+
         }
 
 
@@ -128,11 +204,29 @@ function determineOutcome(total) {
 
             losses++;
             display("seven", showLosses, losses);
+            playerInfo.losses = playerInfo.losses + playerInfo.amountBet;
             point = 0;
+            bankRoll = bankRoll - CurrentbetAmount;
+            console.log(bankRoll);
+            document.getElementById("submitBtn").disabled = false;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
+
+
+        }
+         if (bankRoll == 0) {
+            alert("Thats Craps!!! Your Broke!!! Game Over!!!! Please Refresh the page to Play Again")
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("reset").disabled = true;
+            document.getElementById("roll").disabled = true;
+            bankOutput.textContent = `Your Bank is $${bankRoll}`;
         }
     }
 
 }
+
+
 
 
 function display(msg, c, w) {
