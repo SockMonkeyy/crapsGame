@@ -75,7 +75,7 @@
     <div class="page-main text-center align-items-center">
         <div class="play mt-5 rounded text-wrapper text-center">
             <h1 class="mb-5">Let's Play</h1>
-            <p class="show" id="show">To start a game, roll the dice!</p>
+           
             <p class="gameOver" id="gameOver"></p>
         </div>
         <div class="d-flex justify-content-center pt-3">
@@ -87,6 +87,9 @@
         </div>
         <div class="d-flex justify-content-center pt-2">
             <button onclick="setBet()" class="row mb-2 myBtn.bet rounded" id="submitBtn">Bet</input>
+        </div>
+        <div class="row-25 text-center d-flex justify-content-center pt-2">
+            <p class="show" id="show">To start a game, roll the dice!</p>
         </div>
         <div class="row-25 text-center d-flex justify-content-center pt-2">
             <small class="total">You rolled&hellip; </small><var id="total"></var>
@@ -139,7 +142,7 @@
             function setBet() {
                 CurrentbetAmount = Number(document.getElementById('inputText').value);
                 if (CurrentbetAmount > bankRoll || CurrentbetAmount == NaN || CurrentbetAmount < 1) {
-                    alert(`Please enter an amount above 0 below ${bankRoll}`)
+                    gameOver.textContent = `Please enter an amount above 0 and below ${bankRoll}`
                 }
 
                 else {
@@ -150,14 +153,14 @@
                     console.log(CurrentbetAmount);
                     return (CurrentbetAmount);
                 }
-                inputText.innerHTML = '';
+               
             }
             let message = {
                 natural: `That's a natural. You win!`,
                 two: `That's snake eyes. You lose!`,
                 three: `That's ace duece. You Lose!`,
                 twelve: `That's box cars. You lose!`,
-                point: `You hit your point. You won!`,
+                point: `You hit your point. You win!`,
                 seven: `That's a 7. Craps you lose!`,
             };
 
@@ -198,7 +201,6 @@
             }
 
             function rollBoth() {
-
                 let dice1 = roll("die1");
                 let dice2 = roll("die2");
                 let total = dice1 + dice2;
@@ -208,7 +210,6 @@
 
             function determineOutcome(total) {
                 const bankOutput = document.getElementById('bankRoll')
-
                 if (point == 0) {
                     if (total == 7 || total == 11) {
                         bankRoll = bankRoll + CurrentbetAmount;
