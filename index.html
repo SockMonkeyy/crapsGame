@@ -14,10 +14,12 @@
             background-color: black;
             color: oldlace;
         }
-        .page-main{
+
+        .page-main {
             padding-top: 6rem;
         }
-        .betAmount{
+
+        .betAmount {
             max-width: 10rem;
         }
     </style>
@@ -36,13 +38,14 @@
                 <p type="number" id="bankRoll" class="row-25 ml-3 mr-3">Your Starting Bank is $1000</p>
             </div>
             <div class="d-flex justify-content-center pt-3">
-                <input type="number" placeholder="Bet Amount" id="inputText" class="text-center betAmount ml-3 mb-3 mr-3">
+                <input type="number" placeholder="Bet Amount" id="inputText"
+                    class="text-center betAmount ml-3 mb-3 mr-3">
             </div>
             <div class="d-flex justify-content-center pt-2">
                 <button onclick="setBet()" class="row-25 mb-2 rounded" id="submitBtn">Bet</input>
-                </div>
-                <div class="row-25 text-center d-flex justify-content-center pt-2">
-                    <small class="total">You rolled&hellip; </small><var id="total"></var>
+            </div>
+            <div class="row-25 text-center d-flex justify-content-center pt-2">
+                <small class="total">You rolled&hellip; </small><var id="total"></var>
             </div>
             <div class="container" style="height: 100px;">
                 <div class="row d-flex justify-content-center ">
@@ -50,9 +53,9 @@
                         <div id="die1" class="die">0</div>
                         <div id="die2" class="die">0</div>
                     </div>
-                    
+
                     <div class="col-50 ml-5">
-                        Wins: <span id="wins">0</span> <br> 
+                        Wins: <span id="wins">0</span> <br>
                         Losses: <span id="losses">0</span>
                     </div>
                 </div>
@@ -60,11 +63,15 @@
                     <button onclick="setGameOver()" class="col-25 mr-2 rounded" id="reset">Reset Game</button>
                     <button id="roll" class="rounded p-1 col-25 roll">Roll the dice!</button>
                 </div>
+                <div class="mt-5 p-3">
+                    <p>You win if a 7 or 11 roll, or lose if 2, 3, or 12 roll (known as “craps”). Any other number that
+                        rolls becomes the “point” and the point must roll again before a 7 to win.</p>
+                </div>
 
             </div>
     </main>
-   
-    
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
