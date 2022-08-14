@@ -43,6 +43,7 @@
             font-weight: bold;
             font-size: 4rem;
         }
+        
     </style>
 </head>
 <nav class="navbar navbar-dark bg-dark text-center fixed-top">
@@ -278,7 +279,7 @@
                             document.getElementById("roll").disabled = true;
                             document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                            gameOver.textContent = `You Rolled 2 and have $0 . . . Game Over!!!!`
+                            return window.location.assign("./endGameWin.html");
 
                         }
                         console.log(bankRoll);
@@ -304,7 +305,7 @@
                             document.getElementById("roll").disabled = true;
                             document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                            gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
+                            return window.location.assign("./endGameWin.html");
                         }
 
 
@@ -330,18 +331,18 @@
                             document.getElementById("roll").disabled = true;
                             document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                            gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
+                            return window.location.assign("./endGameWin.html");
                         }
 
 
 
                     }
                     else if (bankRoll == 0) {
-                        gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
                         document.getElementById("submitBtn").disabled = true;
                         document.getElementById("reset").disabled = false;
                         document.getElementById("roll").disabled = true;
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
+                        return window.location.assign("./endGameWin.html");
                     }
 
                     else {
@@ -397,7 +398,6 @@
 
                     }
                     if (bankRoll == 0) {
-                        gameOver.textContent = `OOH NOO, YOUR ALL OUT OF MONEY . . . Game Over!!!!`
                         document.getElementById("submitBtn").disabled = true;
                         document.getElementById("reset").disabled = false;
                         document.getElementById("roll").disabled = true;
@@ -405,6 +405,7 @@
                         document.getElementById('inputText').focus();
                         document.getElementById('inputText').select();
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
+                        return window.location.assign("./endGameWin.html");
                     }
                 }
 
