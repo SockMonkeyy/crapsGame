@@ -19,7 +19,7 @@
             background-color: black;
             color: lime;
             background-color: black;
-            
+
         }
 
         .page-main {
@@ -36,14 +36,13 @@
         }
 
         .gameOver {
-            font-size: 2rem;
+            font-size: 1.1rem;
         }
 
         .play {
             font-weight: bold;
             font-size: 4rem;
         }
-        
     </style>
 </head>
 <nav class="navbar navbar-dark bg-dark text-center fixed-top">
@@ -158,13 +157,17 @@
             let playerInfo = {
                 gamesPlayed: 0,
             };
+            const highScores = [];
+            let maxBank = 0;
+            
 
 
             function setBet() {
-
+                
                 CurrentbetAmount = Number(document.getElementById('inputText').value);
                 if (CurrentbetAmount > bankRoll || CurrentbetAmount == NaN || CurrentbetAmount < 1) {
                     gameOver.textContent = `Please enter an amount above 0 and below ${bankRoll}`
+                    console.log(maxBank);
                     return;
                 }
 
@@ -175,11 +178,12 @@
                     document.getElementById("roll").disabled = true;
                     startNewRound()
                     gameOver.textContent = ``
-                    console.log(CurrentbetAmount);
+                    
                     return (CurrentbetAmount);
                 }
-                determineOutcome();
 
+                
+                determineOutcome();
             }
             let message = {
                 natural: `That's a natural. You win!`,
@@ -202,7 +206,7 @@
                 document.getElementById("submitBtn").disabled = true;
                 document.getElementById("reset").disabled = false;
                 document.getElementById("roll").disabled = false;
-
+                
             }
 
             document.getElementById('roll').onclick = rollBoth;
@@ -236,15 +240,16 @@
                 determineOutcome(total);
                 document.getElementById('inputText').focus();
                 document.getElementById('inputText').select();
+                
             }
 
             function determineOutcome(total) {
-
+                
                 document.getElementById("inputText").disabled = true;
                 const bankOutput = document.getElementById('bankRoll')
                 if (point == 0) {
                     if (total == 7 || total == 11) {
-                        bankRoll = bankRoll + CurrentbetAmount;
+                       bankRoll = bankRoll + CurrentbetAmount;
                         wins++;
                         // added betting code
                         display("natural", showWins, wins, playerInfo.wins);
@@ -256,7 +261,6 @@
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
                         document.getElementById('inputText').focus();
                         document.getElementById('inputText').select();
-                        console.log(bankRoll);
 
 
                     }
@@ -283,7 +287,6 @@
                             return window.location.assign("./endGameWin.html");
 
                         }
-                        console.log(bankRoll);
 
                     }
                     else if (total == 3) {
@@ -297,7 +300,6 @@
                         document.getElementById('inputText').focus();
                         document.getElementById('inputText').select();
                         bankRoll = bankRoll - CurrentbetAmount;
-                        console.log(bankRoll);
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
                         if (bankRoll == 0) {
@@ -308,10 +310,9 @@
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
                             return window.location.assign("./endGameWin.html");
                         }
-
-
-
+                        3000
                     }
+
                     else if (total == 12) {
 
                         losses++;
@@ -323,7 +324,6 @@
                         document.getElementById('inputText').focus();
                         document.getElementById('inputText').select();
                         bankRoll = bankRoll - CurrentbetAmount;
-                        console.log(bankRoll);
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
                         if (bankRoll == 0) {
@@ -333,7 +333,7 @@
                             document.getElementById("inputText").disabled = true;
                             bankOutput.textContent = `Your Bank is $${bankRoll}`;
                             return window.location.assign("./endGameWin.html");
-                        }
+                        } 3000
 
 
 
@@ -374,7 +374,6 @@
                         bankOutput.textContent = `Your Bank is $${bankRoll}`;
                         document.getElementById('inputText').focus();
                         document.getElementById('inputText').select();
-                        console.log(bankRoll);
 
 
                     }
@@ -386,8 +385,7 @@
                         display("seven", showLosses, losses);
                         playerInfo.losses = playerInfo.losses + playerInfo.amountBet;
                         point = 0;
-                        bankRoll = bankRoll - CurrentbetAmount;
-                        console.log(bankRoll);
+                        bankRoll = bankRoll - CurrentbetAmount; 
                         document.getElementById("submitBtn").disabled = false;
                         document.getElementById("reset").disabled = true;
                         document.getElementById("roll").disabled = true;
@@ -411,7 +409,16 @@
                 }
 
                 inputText.value = '';
+                highScores.push(bankRoll)
+                maxBank = Math.max(...highScores);
+                console.log(maxBank);
+                localStorage.setItem('maxBank', maxBank);
+                
+                return maxBank;
             }
+           
+            
+
             document.addEventListener("keypress", function (event) {
                 if (event.key === "Enter") {
                     event.preventDefault();
@@ -449,6 +456,8 @@
                 show.innerHTML = message[msg];
                 c.innerHTML = w;
             }
+
+            
         </script>
 </body>
 
