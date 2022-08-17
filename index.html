@@ -23,6 +23,7 @@
         }
         .container{
             width: 90%;
+            box-shadow: 0 0.1em 0.8em 0.2em lime;
         }
 
         .page-main {
@@ -94,6 +95,8 @@
         }
         .box{
             background-color: rgba(0, 255, 0, 0.116);
+            border: lime 1px solid;
+           
         }
     </style>
 </head>
@@ -152,12 +155,12 @@
     <div class="container">
         <div class="row justify-content-center text-center d-flex">
 
-            <div class="col-6 p-2 text-center border border-light box col-sm-4">
+            <div class="col-6 p-2 text-center box col-sm-4">
 
                 <p class="align-items-center p-2" style="line-height: 2rem;" id="bankRoll">Your Starting Bank is <br>
                     $1000</p>
             </div>
-            <div class="col-6 col-sm-4 box border border-light">
+            <div class="col-6 col-sm-4 box">
                 <div class=" row  p-4">
                     <p class=""> Wins: <span id="wins">0</span>
                 </div>
@@ -169,7 +172,7 @@
 
             <!-- Force next columns to break to new line at md breakpoint and up -->
             <div class="w-100 d-none d-md-block"></div>
-            <div class="col-6 border border-light box col-sm-4 p-2">
+            <div class="col-6 col-sm-4 box p-2">
                 <p class="text-center p-2"> <small class="total">You rolled&hellip; </small><var id="total"></var>
                 </p>
                 <div class="">
@@ -179,7 +182,7 @@
             </div>
 
 
-            <div class="col-6 col-sm-4 p-2 text border box border-light">
+            <div class="col-6 col-sm-4 p-2 text box">
                 <p class="show p-2" id="show">To start a game, roll the dice!</p>
             </div>
         </div>
