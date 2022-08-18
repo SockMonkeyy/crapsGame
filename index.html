@@ -166,50 +166,54 @@
 
 
     <div class="page-main text-center align-items-center">
-        <div class="play mt-5 rounded text-wrapper text-center">
+        <div class="play mb-2 mt-5 rounded text-wrapper text-center">
             <h4 style="padding: .5rem; width: 200px; border: lime 1px solid; margin:0 auto;   box-shadow: 0 0.5em 1em -0.4em lime;"
-                class="mb-5 play">Let's Play</h4>
+                class="play">Let's Play</h4>
             <p id="gameOver"></p>
         </div>
     </div>
 
-  
 
+    
+        <div class="dice-wrapper d-flex justify-content-center">
+            <img style="width: 150px;" src="./5.svg"  id="die-1">
+            <img style="width: 150px;" src="./2.svg" id="die-2">
+        </div>
 
-        <div class="row main justify-content-center text-center d-flex">
+    <div class="row main justify-content-center text-center d-flex">
 
-            <div class="col-6 p-2 text-center box col-sm-4">
+        <div class="col-6 p-2 text-center box col-sm-4">
 
-                <p class="align-items-center p-2" style="line-height: 2rem;" id="bankRoll">Your Starting Bank is <br>
-                    $1000</p>
+            <p class="align-items-center p-2" style="line-height: 2rem;" id="bankRoll">Your Starting Bank is <br>
+                $1000</p>
+        </div>
+        <div class="col-6 col-sm-4 box">
+            <div class=" row  p-4">
+                <p class=""> Wins: <span id="wins">0</span>
             </div>
-            <div class="col-6 col-sm-4 box">
-                <div class=" row  p-4">
-                    <p class=""> Wins: <span id="wins">0</span>
-                </div>
-                <div class="row">
-                    <p>Losses: <span id="losses">0</span></p>
-                </div>
-            </div>
-
-
-            <!-- Force next columns to break to new line at md breakpoint and up -->
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-6 col-sm-4 box p-2">
-                <p class="text-center p-2"> <small class="total">You rolled&hellip; </small><var id="total"></var>
-                </p>
-                <div class="">
-                    <div id="die1" class="die">0</div>
-                    <div id="die2" class="die">0</div>
-                </div>
-            </div>
-
-
-            <div class="col-6 col-sm-4 p-2 text box">
-                <p class="show p-2" id="show">To start a game, roll the dice!</p>
+            <div class="row">
+                <p>Losses: <span id="losses">0</span></p>
             </div>
         </div>
-    
+
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="col-6 col-sm-4 box p-2">
+            <p class="text-center p-2"> <small class="total">You rolled&hellip; </small><var id="total"></var>
+            </p>
+            <div class="">
+                <div id="die1" class="die">0</div>
+                <div id="die2" class="die">0</div>
+            </div>
+        </div>
+
+
+        <div class="col-6 col-sm-4 p-2 text box">
+            <p class="show p-2" id="show">To start a game, roll the dice!</p>
+        </div>
+    </div>
+
 
 
     <div class="d-flex justify-content-center pt-3">
@@ -233,339 +237,12 @@
 
     </div>
 
-
+<script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
         crossorigin="anonymous"></script>
 
-    <script>
-
-        let dice = document.querySelectorAll("img");
-
-        document.getElementById("reset").disabled = true;
-        document.getElementById("roll").disabled = true;
-        document.getElementById("inputText").disabled = false;
-        document.getElementById('inputText').focus();
-        document.getElementById('inputText').select();
-        document.getElementById("submitBtn").disabled = false;
-
-        let outcome = document.getElementById('total');
-        let show = document.getElementById('show');
-        let showWins = document.getElementById('wins');
-        let showLosses = document.getElementById('losses');
-        let point = 0;
-        let wins = 0;
-        let losses = 0;
-        let bankRoll = 1000;
-        let playerInfo = {
-            gamesPlayed: 0,
-        };
-        const highScores = [];
-        let maxBank = 0;
-
-
-        function setBet() {
-
-
-            CurrentbetAmount = Number(document.getElementById('inputText').value);
-            if (CurrentbetAmount > bankRoll || CurrentbetAmount == NaN || CurrentbetAmount < 1) {
-                gameOver.textContent = `Please enter an amount above 0 and below ${bankRoll}`
-                console.log(maxBank);
-                return;
-            }
-
-
-            else {
-                document.getElementById("roll").disabled = false;
-                document.getElementById("reset").disabled = false;
-                document.getElementById("roll").disabled = true;
-                startNewRound()
-                gameOver.textContent = ``
-
-                return (CurrentbetAmount);
-            }
-
-
-            determineOutcome();
-        }
-        let message = {
-            natural: `That's a natural. You win!`,
-            two: `That's snake eyes. You lose!`,
-            three: `That's ace duece. You Lose!`,
-            twelve: `That's box cars. You lose!`,
-            point: `You hit your point. You win!`,
-            seven: `That's a 7. Craps you lose!`,
-        };
-
-        // Betting script
-
-        let startNewRound = function () {
-
-            playerInfo.point = 0;
-            // allow betting again
-            //reset bet amount
-
-            // clear betting area
-            document.getElementById("submitBtn").disabled = true;
-            document.getElementById("reset").disabled = false;
-            document.getElementById("roll").disabled = false;
-
-        }
-
-        document.getElementById('roll').onclick = rollBoth;
-
-
-        function roll(dice) {
-
-            var random = Math.floor((Math.random() * 6) + 1);
-            document.getElementById(dice).innerHTML = random;
-            document.getElementById('inputText').focus();
-            document.getElementById('inputText').select();
-            return random;
-        }
-
-        function reset() {
-            point = 0;
-            wins = 0;
-            losses = 0;
-            show.innerHTML = "To start a game, roll the dice!";
-            showWins.innerHTML = "0";
-            showLosses.innerHTML = "0";
-            document.getElementById("die1").innerHTML = "";
-            document.getElementById("die2").innerHTML = "";
-            outcome.innerHTML = "";
-        }
-
-        function rollBoth() {
-
-            const dice1 = roll("die1");
-            const dice2 = roll("die2");
-            const total = dice1 + dice2;
-            outcome.innerHTML = total;
-            determineOutcome(total);
-            document.getElementById('inputText').focus();
-            document.getElementById('inputText').select();
-
-        }
-
-
-        function determineOutcome(total) {
-
-
-            document.getElementById("inputText").disabled = true;
-            const bankOutput = document.getElementById('bankRoll')
-            if (point == 0) {
-                if (total == 7 || total == 11) {
-                    bankRoll = bankRoll + CurrentbetAmount;
-                    wins++;
-                    // added betting code
-                    display("natural", showWins, wins, playerInfo.wins);
-                    playerInfo.gamesPlayed++;
-                    document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-
-
-                }
-                else if (total == 2) {
-
-                    losses++;
-                    display("two", showLosses, losses);
-                    document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-                    bankRoll = bankRoll - CurrentbetAmount;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-
-
-                    if (bankRoll == 0) {
-                        document.getElementById("submitBtn").disabled = true;
-                        document.getElementById("reset").disabled = false;
-                        document.getElementById("roll").disabled = true;
-                        document.getElementById("inputText").disabled = true;
-                        bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                        return window.location.assign("./endGameWin.html");
-
-                    }
-
-                }
-                else if (total == 3) {
-
-                    losses++;
-                    display("three", showLosses, losses);
-                    document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-                    bankRoll = bankRoll - CurrentbetAmount;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-
-                    if (bankRoll == 0) {
-                        document.getElementById("submitBtn").disabled = true;
-                        document.getElementById("reset").disabled = false;
-                        document.getElementById("roll").disabled = true;
-                        document.getElementById("inputText").disabled = true;
-                        bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                        return window.location.assign("./endGameWin.html");
-                    }
-                    3000
-                }
-
-                else if (total == 12) {
-
-                    losses++;
-                    display("twelve", showLosses, losses);
-                    document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-                    bankRoll = bankRoll - CurrentbetAmount;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-
-                    if (bankRoll == 0) {
-                        document.getElementById("submitBtn").disabled = true;
-                        document.getElementById("reset").disabled = false;
-                        document.getElementById("roll").disabled = true;
-                        document.getElementById("inputText").disabled = true;
-                        bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                        return window.location.assign("./endGameWin.html");
-                    } 3000
-
-
-
-                }
-                else if (bankRoll == 0) {
-                    document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = false;
-                    document.getElementById("roll").disabled = true;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    return window.location.assign("./endGameWin.html");
-                }
-
-                else {
-
-                    point = total;
-                    inputText.value = '';
-                    show.innerHTML = "Your point is " + point;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-                }
-
-
-            }
-            else {
-
-                if (total == point) {
-
-                    wins++;
-                    // added betting code
-                    display("point", showWins, wins, playerInfo.wins);
-                    playerInfo.gamesPlayed++;
-                    document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    document.getElementById("roll").disabled = true;
-                    point = 0;
-                    bankRoll = bankRoll + CurrentbetAmount;
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-
-
-                }
-
-
-                if (total == 7) {
-
-                    losses++;
-                    display("seven", showLosses, losses);
-                    playerInfo.losses = playerInfo.losses + playerInfo.amountBet;
-                    point = 0;
-                    bankRoll = bankRoll - CurrentbetAmount;
-                    document.getElementById("submitBtn").disabled = false;
-                    document.getElementById("reset").disabled = true;
-                    document.getElementById("roll").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-
-
-                }
-                if (bankRoll == 0) {
-                    document.getElementById("submitBtn").disabled = true;
-                    document.getElementById("reset").disabled = false;
-                    document.getElementById("roll").disabled = true;
-                    document.getElementById("inputText").disabled = false;
-                    document.getElementById('inputText').focus();
-                    document.getElementById('inputText').select();
-                    bankOutput.textContent = `Your Bank is $${bankRoll}`;
-                    return window.location.assign("./endGameWin.html");
-                }
-            }
-
-            inputText.value = '';
-            highScores.push(bankRoll)
-            maxBank = Math.max(...highScores);
-            console.log(maxBank);
-            localStorage.setItem('maxBank', maxBank);
-
-            return maxBank;
-        }
-
-        localStorage.setItem('maxBank', maxBank);
-
-        document.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                document.getElementById("roll").click();
-            }
-        });
-
-
-        inputText.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                document.getElementById("submitBtn").click();
-            }
-
-        });
-
-        document.addEventListener("keypress", function (event) {
-            if (event.key === "r") {
-                event.preventDefault();
-                document.getElementById("reset").click();
-            }
-
-        });
-
-
-        function setGameOver() {
-            document.getElementById('inputText').disabled = true;
-            location.reload();
-
-        };
-
-
-
-        function display(msg, c, w) {
-            show.innerHTML = message[msg];
-            c.innerHTML = w;
-        }
-
-
-    </script>
+   
 </body>
 
 </html>
