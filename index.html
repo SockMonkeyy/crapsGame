@@ -19,8 +19,8 @@
             background-color: black;
             color: lime;
             background-color: black;
-
         }
+
 
         .container {
             width: 90%;
@@ -98,6 +98,7 @@
         .box {
             background-color: rgba(0, 255, 0, 0.116);
             border: #00ff00 1px solid;
+            box-shadow: 0 0.1em 0.8em 0.2em lime;
         }
 
         .shake {
@@ -166,20 +167,16 @@
 
     <div class="page-main text-center align-items-center">
         <div class="play mt-5 rounded text-wrapper text-center">
-            <h4 style="padding: .5rem; width: 200px; border: lime 1px solid; margin:0 auto;   box-shadow: 0 0.5em 1em -0.4em lime;" class="mb-5 play">Let's Play</h4>
+            <h4 style="padding: .5rem; width: 200px; border: lime 1px solid; margin:0 auto;   box-shadow: 0 0.5em 1em -0.4em lime;"
+                class="mb-5 play">Let's Play</h4>
             <p id="gameOver"></p>
         </div>
     </div>
 
-    <div class="container">
-        <div class="dice-wrapper row justify-content-center text-center d-flex box">
-            <img style="width: 10rem;"  alt="" id="die-1">
-            <img style="width: 10rem;" alt="" id="die-2">
-        </div>
-    </div>
+  
 
-    <div class="container">
-        <div class="row justify-content-center text-center d-flex">
+
+        <div class="row main justify-content-center text-center d-flex">
 
             <div class="col-6 p-2 text-center box col-sm-4">
 
@@ -212,7 +209,7 @@
                 <p class="show p-2" id="show">To start a game, roll the dice!</p>
             </div>
         </div>
-    </div>
+    
 
 
     <div class="d-flex justify-content-center pt-3">
@@ -242,12 +239,6 @@
         crossorigin="anonymous"></script>
 
     <script>
-        let images = ["1.svg",
-            "2.svg",
-            "3.svg",
-            "4.svg",
-            "5.svg",
-            "6.svg"];
 
         let dice = document.querySelectorAll("img");
 
@@ -271,7 +262,6 @@
         };
         const highScores = [];
         let maxBank = 0;
-
 
 
         function setBet() {
@@ -347,26 +337,14 @@
         }
 
         function rollBoth() {
-   dice.forEach(function(die){
-        die.classList.add("shake");
-    });
-    setTimeout(function(){
-        dice.forEach(function(die){
-            die.classList.remove("shake");
-        });
-        1000
-        });
 
-
-            let dice1 = roll("die1");
-            let dice2 = roll("die2");
-            let total = dice1 + dice2;
+            const dice1 = roll("die1");
+            const dice2 = roll("die2");
+            const total = dice1 + dice2;
             outcome.innerHTML = total;
             determineOutcome(total);
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
-          
-         
 
         }
 
