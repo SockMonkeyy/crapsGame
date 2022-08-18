@@ -7,11 +7,12 @@ body {
     background-color: black;
     color: lime;
     background-color: black;
+    width: 90%;
 }
 
 
 .container {
-    width: 90%;
+    
     box-shadow: 0 0.1em 0.8em 0.2em lime;
 }
 
