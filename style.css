@@ -12,6 +12,13 @@ body {
 
 }
 
+.craps{
+    color: red;
+}
+
+.win{
+    color: lime;
+}
 
 .container {
     
@@ -34,7 +41,7 @@ body {
 }
 
 #gameOver {
-    font-size: .5em;
+    font-size: 1em;
 }
 
 .play {

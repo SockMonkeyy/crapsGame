@@ -16,6 +16,7 @@ document.getElementById("inputText").disabled = false;
 document.getElementById('inputText').focus();
 document.getElementById('inputText').select();
 document.getElementById("submitBtn").disabled = false;
+document.getElementById("letsPlay");
 
 let outcome = document.getElementById('total');
 let show = document.getElementById('show');
@@ -30,6 +31,7 @@ let playerInfo = {
 };
 const highScores = [];
 let maxBank = 0;
+
 
 
 function setBet() {
@@ -54,9 +56,7 @@ function setBet() {
     }
 
 
-    determineOutcome();
 }
-
 
 let message = {
     natural: `That's a natural. You win!`,
@@ -72,27 +72,21 @@ let message = {
 let startNewRound = function () {
 
     playerInfo.point = 0;
-    // allow betting again
-    //reset bet amount
-
-    // clear betting area
     document.getElementById("submitBtn").disabled = true;
     document.getElementById("reset").disabled = false;
     document.getElementById("roll").disabled = false;
+
 
 }
 
 document.getElementById('roll').onclick = rollBoth;
 
-
+//Returns Random Number Used for Each Die
 function roll(dice) {
-
-
     random = Math.floor((Math.random() * 6) + 1);
     document.getElementById(dice).innerHTML = random;
     document.getElementById('inputText').focus();
     document.getElementById('inputText').select();
-
     return random;
 }
 
@@ -109,6 +103,8 @@ function reset() {
 }
 
 function rollBoth() {
+
+    // Dice Roll Shake Function
     dice.forEach(function (die) {
         die.classList.add("shake");
     });
@@ -117,35 +113,38 @@ function rollBoth() {
             die.classList.remove("shake")
         });
 
-    const dice1 = roll("die1");
-    const dice2 = roll("die2");
-    dieOneValue = dice1;
-    dieTwoValue = dice2;
-    const total = dice1 + dice2;
-    outcome.innerHTML = total;
-    if (dice1 == 1) document.querySelector("#die-1").setAttribute('src', images[0]);
-    if (dice1 == 2) document.querySelector("#die-1").setAttribute('src', images[1]);
-    if (dice1 == 3) document.querySelector("#die-1").setAttribute('src', images[2]);
-    if (dice1 == 4) document.querySelector("#die-1").setAttribute('src', images[3]);
-    if (dice1 == 5) document.querySelector("#die-1").setAttribute('src', images[4]);
-    if (dice1 == 6) document.querySelector("#die-1").setAttribute('src', images[5]);
-    if (dice2 == 1) document.querySelector("#die-2").setAttribute('src', images[0]);
-    if (dice2 == 2) document.querySelector("#die-2").setAttribute('src', images[1]);
-    if (dice2 == 3) document.querySelector("#die-2").setAttribute('src', images[2]);
-    if (dice2 == 4) document.querySelector("#die-2").setAttribute('src', images[3]);
-    if (dice2 == 5) document.querySelector("#die-2").setAttribute('src', images[4]);
-    else if (dice2 == 6) document.querySelector("#die-2").setAttribute('src', images[5]);
-    determineOutcome(total);
-    document.getElementById('inputText').focus();
-    document.getElementById('inputText').select();
-},
-    500
+        const dice1 = roll("die1");
+        const dice2 = roll("die2");
+        dieOneValue = dice1;
+        dieTwoValue = dice2;
+        const total = dice1 + dice2;
+        outcome.innerHTML = total;
+
+        // Dice Roll Image
+        if (dice1 == 1) document.querySelector("#die-1").setAttribute('src', images[0]);
+        if (dice1 == 2) document.querySelector("#die-1").setAttribute('src', images[1]);
+        if (dice1 == 3) document.querySelector("#die-1").setAttribute('src', images[2]);
+        if (dice1 == 4) document.querySelector("#die-1").setAttribute('src', images[3]);
+        if (dice1 == 5) document.querySelector("#die-1").setAttribute('src', images[4]);
+        if (dice1 == 6) document.querySelector("#die-1").setAttribute('src', images[5]);
+        if (dice2 == 1) document.querySelector("#die-2").setAttribute('src', images[0]);
+        if (dice2 == 2) document.querySelector("#die-2").setAttribute('src', images[1]);
+        if (dice2 == 3) document.querySelector("#die-2").setAttribute('src', images[2]);
+        if (dice2 == 4) document.querySelector("#die-2").setAttribute('src', images[3]);
+        if (dice2 == 5) document.querySelector("#die-2").setAttribute('src', images[4]);
+        else if (dice2 == 6) document.querySelector("#die-2").setAttribute('src', images[5]);
+        determineOutcome(total);
+        document.getElementById('inputText').focus();
+        document.getElementById('inputText').select();
+        document.getElementById("letsPlay").style.display = 'none';
+
+    },
+        500
     );
     return dice1, dice2;
 }
 
 function determineOutcome(total) {
-
     document.getElementById("inputText").disabled = true;
     const bankOutput = document.getElementById('bankRoll')
     if (point == 0) {
@@ -162,6 +161,7 @@ function determineOutcome(total) {
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
+            document.getElementById('show').classList.add('win');
 
 
         }
@@ -175,6 +175,7 @@ function determineOutcome(total) {
             document.getElementById("inputText").disabled = false;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
+            document.getElementById('show').classList.remove('win');
             bankRoll = bankRoll - CurrentbetAmount;
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
@@ -200,6 +201,7 @@ function determineOutcome(total) {
             document.getElementById("inputText").disabled = false;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
+            document.getElementById('show').classList.remove('win');
             bankRoll = bankRoll - CurrentbetAmount;
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
@@ -224,6 +226,7 @@ function determineOutcome(total) {
             document.getElementById("inputText").disabled = false;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
+            document.getElementById('show').classList.remove('win');
             bankRoll = bankRoll - CurrentbetAmount;
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
@@ -251,9 +254,11 @@ function determineOutcome(total) {
 
             point = total;
             inputText.value = '';
+            document.getElementById('show').classList.add('win');
             show.innerHTML = "Your point is " + point;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
+            
         }
 
 
@@ -272,6 +277,7 @@ function determineOutcome(total) {
             document.getElementById("roll").disabled = true;
             point = 0;
             bankRoll = bankRoll + CurrentbetAmount;
+            document.getElementById('show').classList.add('win');
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
@@ -293,6 +299,7 @@ function determineOutcome(total) {
             document.getElementById("inputText").disabled = false;
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
+            document.getElementById('show').classList.remove('win');
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
 

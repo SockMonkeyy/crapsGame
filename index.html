@@ -54,11 +54,10 @@
 <body>
 
 
-    <div class="page-main text-center align-items-center">
-        <div class="play mb-2 mt-5 rounded text-wrapper text-center">
+    <div  class="page-main text-center align-items-center">
+        <div   class="play mb-2 mt-5 rounded text-wrapper text-center">
             <h4 style="padding: .5rem; width: 200px; border: lime 1px solid; margin:0 auto;   box-shadow: 0 0.5em 1em -0.4em lime;"
-                class="play">Let's Play</h4>
-            <p id="gameOver"></p>
+                class="play" id="letsPlay">Let's Play</h4>
         </div>
    
 
@@ -68,7 +67,7 @@
             <img style="width: 150px;" src="./5.svg"  id="die-1">
             <img style="width: 150px;" src="./2.svg" id="die-2">
         </div>
-
+<div>    <h4 id="gameOver"></h4></div>
     <div class="row main justify-content-center text-center d-flex">
 
         <div class="col-6 p-2 text-center box col-sm-4">
@@ -76,11 +75,11 @@
             <p class="align-items-center p-2" style="line-height: 2rem;" id="bankRoll">Your Starting Bank is <br>
                 $1000</p>
         </div>
-        <div class="col-6 col-sm-4 box">
+        <div  class="col-6 col-sm-4 box">
             <div class=" row  p-4">
                 <p class=""> Wins: <span id="wins">0</span>
             </div>
-            <div class="row">
+            <div class="craps row">
                 <p>Losses: <span id="losses">0</span></p>
             </div>
         </div>
@@ -89,7 +88,7 @@
         <!-- Force next columns to break to new line at md breakpoint and up -->
         <div class="w-100 d-none d-md-block"></div>
         <div class="col-6 col-sm-4 box p-2">
-            <p class="text-center p-2"> <small class="total">You rolled&hellip; </small><var id="total"></var>
+            <p id="rolled"  class="text-center win craps p-2"> <small class="total">You rolled&hellip; </small><var id="total"></var>
             </p>
             <div class="">
                 <div id="die1" class="die">0</div>
@@ -98,8 +97,8 @@
         </div>
 
 
-        <div class="col-6 col-sm-4 p-2 text box">
-            <p class="show p-2" id="show">To start a game, roll the dice!</p>
+        <div  class="col-6 box col-sm-4 p-2 text ">
+            <p class="show craps win p-2" id="show">To start a game, roll the dice!</p>
         </div>
     </div>
 
