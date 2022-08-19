@@ -300,7 +300,6 @@ function determineOutcome(total) {
             document.getElementById('inputText').focus();
             document.getElementById('inputText').select();
             document.getElementById('show').classList.remove('win');
-            document.getElementsByClassName('die').classList.remove('win');
             bankOutput.textContent = `Your Bank is $${bankRoll}`;
 
 
