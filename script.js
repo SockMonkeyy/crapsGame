@@ -75,8 +75,6 @@ let startNewRound = function () {
     document.getElementById("submitBtn").disabled = true;
     document.getElementById("reset").disabled = false;
     document.getElementById("roll").disabled = false;
-
-
 }
 
 document.getElementById('roll').onclick = rollBoth;
